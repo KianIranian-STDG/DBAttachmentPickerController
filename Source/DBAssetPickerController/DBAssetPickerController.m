@@ -36,6 +36,9 @@
     
     DBAssetGroupsViewController *groupController = [[DBAssetGroupsViewController alloc] initWithNibName:NSStringFromClass([DBAssetGroupsViewController class]) bundle:[NSBundle dbAttachmentPickerBundle]];
     groupController.assetMediaType = self.assetMediaType;
+    if (![self.customPredicate isKindOfClass:[NSNull class]]) {
+        groupController.customPredicate = self.customPredicate;
+    }
     groupController.assetGroupsDelegate = self;
     [self setViewControllers:@[groupController]];
 }
@@ -44,9 +47,15 @@
 
 - (void)DBAssetGroupsViewController:(DBAssetGroupsViewController *)controller didSelectAssetColoection:(PHAssetCollection *)assetCollection {
     DBAssetItemsViewController *itemsController = [[DBAssetItemsViewController alloc] initWithNibName:NSStringFromClass([DBAssetItemsViewController class]) bundle:[NSBundle dbAttachmentPickerBundle]];
+    itemsController.selectedItens = self.selectedItems;
+    itemsController.maxItems = self.maxItems;
     itemsController.assetMediaType = self.assetMediaType;
+    if (![self.customPredicate isKindOfClass:[NSNull class]]) {
+        itemsController.customPredicate = self.customPredicate;
+    }
     itemsController.assetItemsDelegate = self;
     itemsController.assetCollection = assetCollection;
+
     [self pushViewController:itemsController animated:YES];
 }
 
