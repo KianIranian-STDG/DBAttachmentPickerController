@@ -33,6 +33,11 @@ NSString * const kLocalizedStringNotFound = @"kLocalizedStringNotFound";
 + (instancetype)dbAttachmentPickerResourceBundle {
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *bundlePath = [[NSBundle mainBundle] pathForResource:@"DBAttachmentPickerController" ofType:@"bundle"];
+    if (!bundlePath) {
+        // in case of using Swift and embedded frameworks, resources included not in main bundle,
+        // but in framework bundle
+        bundlePath = [[NSBundle bundleForClass:[DBAttachmentPickerController class]] pathForResource:@"DBAttachmentPickerController" ofType:@"bundle"];
+    }
     if (bundlePath) {
         bundle = [NSBundle bundleWithPath:bundlePath];
     }

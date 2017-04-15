@@ -26,8 +26,26 @@ typedef void (^AlertActionHandler)(UIAlertAction * _Nonnull action);
 
 @interface DBAttachmentAlertController : UIAlertController
 
+NS_ASSUME_NONNULL_BEGIN
+
 @property (assign, nonatomic, readonly) PHAssetMediaType assetMediaType;
 @property (assign, nonatomic, readonly) BOOL allowsMultipleSelection;
+
+@property (strong, nonatomic) NSNumber *maxItems;
+@property (strong, nonatomic) NSArray *selectedItems;
+@property (strong, nonatomic) NSPredicate *customPredicate;
+
++ (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)assetMediaType
+                                        allowsMultipleSelection:(BOOL)allowsMultipleSelection
+                                             allowsMediaLibrary:(BOOL)allowsPhotoOrVideo
+                                                allowsOtherApps:(BOOL)allowsOtherApps
+                                                  customActions:(nullable NSArray *) customActions
+                                                  attachHandler:(nullable AlertAttachAssetsHandler)attachHandler
+                                               allAlbumsHandler:(nullable AlertActionHandler)allAlbumsHandler
+                                             takePictureHandler:(nullable AlertActionHandler)takePictureHandler
+                                               otherAppsHandler:(nullable AlertActionHandler)otherAppsHandler
+                                                  cancelHandler:(nullable AlertActionHandler)cancelHandler;
+
 
 + (_Nonnull instancetype)attachmentAlertControllerWithMediaType:(PHAssetMediaType)assetMediaType
                                         allowsMultipleSelection:(BOOL)allowsMultipleSelection
@@ -38,5 +56,7 @@ typedef void (^AlertActionHandler)(UIAlertAction * _Nonnull action);
                                              takePictureHandler:(nullable AlertActionHandler)takePictureHandler
                                                otherAppsHandler:(nullable AlertActionHandler)otherAppsHandler
                                                   cancelHandler:(nullable AlertActionHandler)cancelHandler;
+
+NS_ASSUME_NONNULL_END
 
 @end
